@@ -31,8 +31,8 @@ export const PermissionGate: React.FC<PermissionGateProps> = ({ children }) => {
       return;
     }
 
-    // 2. Secondary PIP camera stream (only if mobile & simultaneous supported)
-    if (capabilities.isMobile && capabilities.canSimultaneousCameras) {
+    // 2. Secondary PIP camera stream
+    if (capabilities.canSimultaneousCameras) {
       await camera.startFrontCamera();
     }
 

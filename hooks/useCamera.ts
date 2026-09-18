@@ -54,16 +54,27 @@ export function useCamera() {
 
   const startFrontCamera = useCallback(async () => {
     setState(s => ({ ...s, frontPermission: 'requesting' }));
-    const stream = await requestFrontCamera();
+    
+    // First try to get an actual front camera stream
+    let stream = await requestFrontCamera();
+    
+    // If that fails (e.g. single camera device, hardware lock), clone the rear stream as a fallback
+    if (!stream && state.rearStream) {
+      console.log('[useCamera] Front camera unavailable, falling back to cloned rear stream');
+      stream = state.rearStream.clone();
+    }
+
     setState(s => ({
       ...s,
       frontStream: stream,
       frontPermission: stream ? 'granted' : 'unavailable',
       hasFrontCamera: !!stream,
     }));
+    
     if (stream && frontVideoRef.current) attachStreamToVideo(stream, frontVideoRef.current);
+    
     return stream;
-  }, []);
+  }, [state.rearStream]);
 
   const startMicrophone = useCallback(async () => {
     setState(s => ({ ...s, micPermission: 'requesting' }));
