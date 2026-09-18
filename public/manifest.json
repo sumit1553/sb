@@ -1,0 +1,17 @@
+{
+  "name": "Café AR Table Companion",
+  "short_name": "TableCompanion",
+  "description": "A cinematic browser-based AR experience at your café table.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}
